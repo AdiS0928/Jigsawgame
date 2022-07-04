@@ -149,6 +149,8 @@ class Game extends Component{
     
         this.setState({ [pieceData.board]: origin, [targetName]: target })
 
+        this.check();
+
       }
       
 
@@ -193,34 +195,34 @@ class Game extends Component{
 
 
         var l = 15
+        var count=0;
         for(let i=0; i<this.state.pieces.length;i++){
             if(this.state.solved[i]!= undefined){
-                console.log(this.state.solved[i])
-                if(!this.state.solved[i].img==this.state.pieces[i].img)
+                if(this.state.solved[i].img==this.state.pieces[i].img)
                 {
-                    break;
+                    if(count==l){
+                        (async () => {
+                            const res = await fetch('/api/user', {
+                                method: 'POST',
+                                body: JSON.stringify({name:Router.query.name,score: this.state.numberLine["1"].end * 3}),
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            })
+                            const data = await res.json();
+                            console.log("solved!")
+                            Router.push({
+                                pathname: '/leaderboard',
+                                query: { name: Router.query.name, score: this.state.numberLine["1"].end * 3}
+                            });
+                        })()
+                    }
+                    count++
                 }
-                else if(i==l){
-                    (async () => {
-                        const res = await fetch('/api/user', {
-                            method: 'POST',
-                            body: JSON.stringify({name:Router.query.name,score: this.state.numberLine["1"].end}),
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                        })
-                        const data = await res.json();
-                        console.log(data);
-                        console.log("solved!")
-                        Router.push({
-                            pathname: '/leaderboard',
-                            query: { name: Router.query.name, score: this.state.numberLine["1"].end * 3}
-                        });
-                    })()
-                }
+                else{
+                    count = 0;
+                    break;}
             }
-            else
-                break;
         }
     }
 
@@ -260,9 +262,9 @@ class Game extends Component{
 
             <h1 className='text-3xl font-extrabold font-serif'>Countdown: <span>{this.state.numberLine["1"].end}</span></h1>
 
-            {
+            {/* {
             this.check()
-            }
+            } */}
         
         </div>
 

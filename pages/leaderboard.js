@@ -20,24 +20,20 @@ export default function Leaderboard(){
         }
 
         const name = Router.query.name;
-        const score = Router.query.score;
-
-
-
-        
-        // if(parseInt(score)>0)
+        const score = Router.query.score;        
         fetchUser();
         console.log(User)
     }, []
       );
 
+    if(Router.query.score > 0){
 
     return(
         <div >
             <form className='form ' onSubmit={handleSubmit}>
-                <label className='mx-auto text-[20px] '> Congratulations {Router.query.name}! </label>
+                <label className='mx-auto text-[20px] inline-block relative text-left'> Congratulations {Router.query.name}! </label>
                 
-                <label className='mx-auto '>Your Score is {Router.query.score}</label>
+                <label className='mx-auto text-[20px] inline-block relative text-left'>Your Score is {Router.query.score}</label>
                
                 <label className='leader overflow-hidden' type="text">
                     {
@@ -55,5 +51,27 @@ export default function Leaderboard(){
                 <button type="submit" className='but'>Home</button>
             </form>   
         </div>
-    )
+    )}
+    else{
+        return( <div >
+            <form className='form ' onSubmit={handleSubmit}>
+                <label className='mx-auto text-[20px] '> Better Luck Next Time! </label>
+               
+                <label className='leader overflow-hidden' type="text">
+                    {
+                        User.map(user => {
+                            return(
+                                <div key={user.name}>
+                                    {user.name} {user.score}
+                                </div>
+                            )
+                        })
+                    }
+                
+                </label>
+
+                <button type="submit" className='but'>Home</button>
+            </form>   
+        </div>)
+    }
 }
