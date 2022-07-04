@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 
 export default function Home () {
   const [Name, setName] = useState('');
   const [Email, setEmail] = useState('');
   const [Phone, setPhone] = useState('');
+
+  var Router = useRouter();
 
 
   const handleSubmit = (event) => {

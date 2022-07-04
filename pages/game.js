@@ -53,8 +53,7 @@ class Game extends Component{
             numberLine: copy
           });
           //chaos
-        //   console.log(that.state.numberLine["1"].end);
-        console.log(Router.query.name);
+        //   console.log(that.state.numberLine["1"].end)
         if (temp == 0 || temp < 1) {
             clearInterval(counter);
             Router.push({
