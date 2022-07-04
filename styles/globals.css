@@ -1,16 +1,85 @@
-html,
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    .card {
+    @apply w-[270px] h-[48px] border-[2px] border-solid border-orange-500 rounded-[50px] pl-[20px] ml-[45px] text-center
+    }
+
+    .but{
+        @apply border-[2.5px] border-solid border-[#3f3f95] w-[150px] h-[50px] ml-[105px] rounded-[100px] bg-[#3f3f95] text-white
+        active:bg-[#64acf4] active:border-[#64acf4]
+    }
+
+    .form{
+        @apply flex flex-wrap ml-auto mr-auto w-[500px] h-[500px] p-[70px] overflow-hidden border-[2.5px] border-solid border-black my-[100px] rounded-[100px]
+    }
+
+    .leader{
+        @apply w-[290px] h-[150px] border-[2px] border-solid border-orange-500 rounded-[10px]  ml-[45px] my-3 text-center
+    }
+
+
+    .puzzle{
+        text-align: center;
+        background-attachment: fixed;
+        overflow:hidden;
+      }
+    .jigsaw__solved-board,
+.jigsaw__shuffled-board{
+
+  margin: 20px auto;
+  width: 200px;
+  list-style-type: none;
   padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-size: 0;
+  border: 1px solid #DDD;
+  border-width: 1px 0 0 1px;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+.puzzle li{
+    position: relative;
+    text-align: left;
+    display: inline-block; 
+    width: 49px;
+    height: 49px;
+    border: 1px solid #DDD;
+    border-width: 0 1px 1px 0;
+  }
+  
+  .puzzle li:empty:hover:before{
+    opacity: 1;
+  }
+  
+  .puzzle li img{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    cursor: grab;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  
+  .puzzle li img:hover{
+    z-index: 2;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  }
 
-* {
-  box-sizing: border-box;
+  .jigsaw__solved-board{
+    position: relative;
+    background-size: cover;
+  }
+  
+  .jigsaw__solved-board:before{
+    content: '';
+    background-color: rgba(255, 255, 255, 0.6);
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 }
