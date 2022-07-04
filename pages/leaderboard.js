@@ -1,4 +1,4 @@
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import { useEffect, useState } from 'react';
 export default function Leaderboard(){
 
@@ -8,6 +8,7 @@ export default function Leaderboard(){
         event.preventDefault();
         Router.push('/').then(() => window.location.reload());
       }
+    var Router = useRouter();
 
       useEffect( () =>{
         const fetchUser = async () => {
