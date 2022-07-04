@@ -211,12 +211,12 @@ class Game extends Component{
                         })
                         const data = await res.json();
                         console.log(data);
+                        console.log("solved!")
+                        Router.push({
+                            pathname: '/leaderboard',
+                            query: { name: Router.query.name, score: this.state.numberLine["1"].end * 3}
+                        });
                     })()
-                    console.log("solved!")
-                    Router.push({
-                        pathname: '/leaderboard',
-                        query: { name: Router.query.name, score: this.state.numberLine["1"].end * 3}
-                    });
                 }
             }
             else
