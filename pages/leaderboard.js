@@ -22,18 +22,10 @@ export default function Leaderboard(){
         const name = Router.query.name;
         const score = Router.query.score;
 
-        const submitLeader = async () => {
-            const res = await fetch('/api/user', {
-                method: 'POST',
-                body: JSON.stringify({name,score}),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            const data = await res.json();
-            console.log(data);
-        }
-        submitLeader();
+
+
+        
+        // if(parseInt(score)>0)
         fetchUser();
         console.log(User)
     }, []

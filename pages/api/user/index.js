@@ -1,7 +1,7 @@
 export const user = [
     {
         name: 'Adithya',
-        score: 0
+        score: 0,
     },
 
 ]
@@ -16,8 +16,10 @@ export default function handler(req, res) {
             name: name,
             score: score
         }
+        console.log(newUser);
         user.push(newUser);
         res.status(201).json(newUser);
+        
     }
 
 

@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 import Router from 'next/router'
+import { serverRuntimeConfig } from '../next.config';
 
 class Game extends Component{
 
@@ -17,10 +18,11 @@ class Game extends Component{
         solved: [],
         numberLine: {
             1: {
-              end: 2
+              end: 60
             }
           },
-          type: ''
+          type: '',
+          count:0
     };
 
     // counter(){
@@ -55,13 +57,14 @@ class Game extends Component{
           //chaos
         //   console.log(that.state.numberLine["1"].end)
         if (temp == 0 || temp < 1) {
-            clearInterval(counter);
+            
             Router.push({
                 pathname: '/leaderboard',
                 query: { name: Router.query.name, score: 0 }
             });
           }
         }
+        clearInterval(counter);
         const counter = setInterval(timer, 1000);
         
 
@@ -151,7 +154,12 @@ class Game extends Component{
 
     handleDragStart(e, order) {
         e.dataTransfer.setData('text/plain', order);
-        this.counter();
+        
+        if(this.state.count==0){
+            this.setState({count: 1})
+            this.counter();
+        }
+        console.log(this.state.count);
       }
 
     check(){
@@ -163,6 +171,27 @@ class Game extends Component{
         //     console.log("s1",this.state.pieces)
         //     console.log("s2",this.state.solved)
         // }
+
+
+        // (async () => {
+        //     const res = await fetch('/api/user', {
+        //         method: 'POST',
+        //         body: JSON.stringify({name: Router.query.name,score: 0}),
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     })
+        //     const data = await res.json();
+        //     console.log(data);
+        // })()
+        // console.log("solved!")
+        // if(typeof window !== 'undefined')
+        //     Router.push({
+        //         pathname: '/leaderboard',
+        //         query: { name: "gay", score: 0}
+        //     });
+
+
         var l = 15
         for(let i=0; i<this.state.pieces.length;i++){
             if(this.state.solved[i]!= undefined){
@@ -172,7 +201,22 @@ class Game extends Component{
                     break;
                 }
                 else if(i==l){
+                    (async () => {
+                        const res = await fetch('/api/user', {
+                            method: 'POST',
+                            body: JSON.stringify({name:Router.query.name,score: this.state.numberLine["1"].end}),
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                        const data = await res.json();
+                        console.log(data);
+                    })()
                     console.log("solved!")
+                    Router.push({
+                        pathname: '/leaderboard',
+                        query: { name: Router.query.name, score: this.state.numberLine["1"].end * 3}
+                    });
                 }
             }
             else
