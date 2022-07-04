@@ -1,6 +1,5 @@
 import Router from 'next/router'
 import { useEffect, useState } from 'react';
-import { user } from '../data/user';
 export default function Leaderboard(){
 
     const [User, setUser] = useState([]);
