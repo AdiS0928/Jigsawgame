@@ -19,6 +19,7 @@ export async function getServerSideProps() {
   }
 
 
+
 export default function Leaderboard({ initialUser }){
 
 
@@ -48,7 +49,7 @@ export default function Leaderboard({ initialUser }){
 
     if(Router.query.score > 0){
 
-    return(
+    return( 
         <div className='flex flex-row'>
             <form className='form block-inline' onSubmit={handleSubmit}>
                 <label className=' ml-[100px] text-[20px] overflow-hidden'> Congratulations {Router.query.name}! </label>

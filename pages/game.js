@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import _ from 'lodash';
 import Router from 'next/router'
 import { serverRuntimeConfig } from '../next.config';
+import {Howl} from 'howler'
 
 async function savedUser(user){
     const response = await fetch('/api/user', {
@@ -159,6 +160,15 @@ class Game extends Component{
     // }
 
     handleDrop(e, index, targetName) {
+        var soundD = new Howl(
+            {
+                src:"/drop.wav",
+                html5:true
+            }
+
+        )
+
+        soundD.play();
         let target = this.state[targetName];
         if (target[index]) return;
     
@@ -180,6 +190,16 @@ class Game extends Component{
 
     handleDragStart(e, order) {
         e.dataTransfer.setData('text/plain', order);
+
+        var soundC = new Howl(
+            {
+                src:"/click.wav",
+                html5:true
+            }
+
+        )
+
+        soundC.play();
         
         if(this.state.count==0){
             this.setState({count: 1})
