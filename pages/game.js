@@ -231,7 +231,7 @@ class Game extends Component{
 
     render() {
         return(
-        <div className='puzzle bg-[url(/wood.jpg)] h-screen'>
+        <div className='puzzle bg-[url(/wood.jpg)] h-screen touch-none'>
             
             <ul className='jigsaw__shuffled-board'>
                 {
