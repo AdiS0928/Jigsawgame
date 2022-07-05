@@ -24,11 +24,6 @@ async function savedUser(user){
 }
 class Game extends Component{
 
-    // constructor(props) {
-    //     super(props);
-    //     console.log(Router.query.name)
-    //   }
-
 
     state = {
         pieces: [],
@@ -44,37 +39,24 @@ class Game extends Component{
           check: 0
     };
 
-    // counter(){
-    //      setInterval(() => {
-    //         this.setState({[this.state.limit]: this.state.limit - 1}, () => 
-    //         console.log(this.state.limit))
-    //         // displayTime(timeSecond);
-    //         // console.log(this.state.limit);
-    //         if (this.state.limit == 0 || this.state.limit < 1) {
-    //           endCount();
-    //           clearInterval(countDown);
-    //         }
-    //       }, 1000);
-    //     }
     counter() {
         const that = this;
         var temp;
         function timer() {
-          //clone
+     
           const copy = _.cloneDeep(that.state.numberLine);
           let currentValue = that.state.numberLine["1"].end;
-          //increment
+    
           currentValue--;
           
-          //assign
+  
           copy["1"].end = currentValue;
-          //setState
+ 
           temp = copy["1"].end;
           that.setState({
             numberLine: copy
           });
-          //chaos
-        //   console.log(that.state.numberLine["1"].end)
+
         if (temp == 0 || temp < 1) {
             clearInterval(counter);
             Router.push({
@@ -151,14 +133,6 @@ class Game extends Component{
 
     }
 
-    // renderPiecesContainer(piece, index, boardName){
-    //     return(
-    //         <li key={index}>
-    //             {piece && <Image src= {`./images/${piece.img}`} />}
-    //         </li>
-    //     );
-    // }
-
     handleDrop(e, index, targetName) {
         var soundD = new Howl(
             {
@@ -209,35 +183,6 @@ class Game extends Component{
       }
 
     check(){
-        
-        // if (this.state.pieces == this.state.solved){
-        //     console.log("Solved")
-        // }
-        // else {
-        //     console.log("s1",this.state.pieces)
-        //     console.log("s2",this.state.solved)
-        // }
-
-
-        // (async () => {
-        //     const res = await fetch('/api/user', {
-        //         method: 'POST',
-        //         body: JSON.stringify({name: Router.query.name,score: 0}),
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //     })
-        //     const data = await res.json();
-        //     console.log(data);
-        // })()
-        // console.log("solved!")
-        // if(typeof window !== 'undefined')
-        //     Router.push({
-        //         pathname: '/leaderboard',
-        //         query: { name: "gay", score: 0}
-        //     });
-
-
         var l = 15
         var count=0;
         for(let i=0; i<this.state.pieces.length;i++){
@@ -246,29 +191,8 @@ class Game extends Component{
                 {
                     if(count==l){
                         this.setState({check:1});
-                        // (async () => {
-
-                        //     const res = await fetch('/api/user', {
-                        //         method: 'POST',
-                        //         body: JSON.stringify({name:Router.query.name,score: this.state.numberLine["1"].end * 3}),
-                        //         headers: {
-                        //             'Content-Type': 'application/json',
-                        //         },
-                        //     })
-                        //     const data = await res.json();
-                        //     console.log("solved!")
-                        //     Router.push({
-                        //         pathname: '/leaderboard',
-                        //         query: { name: Router.query.name, score: this.state.numberLine["1"].end * 3}
-                        //     });
-                        // })()
                         (async () => {await savedUser({name:Router.query.name,score: this.state.numberLine["1"].end * 3});}
                         )()
-
-                        // Router.push({
-                        //             pathname: '/leaderboard',
-                        //             query: { name: Router.query.name, score: this.state.numberLine["1"].end * 3}
-                        //         });
                         
                     }
                     count++
@@ -280,9 +204,6 @@ class Game extends Component{
         }
     }
 
-
-    
-
     render() {
         return(
         <div className='puzzle bg-[url(/wood.jpg)] h-screen'>
@@ -290,7 +211,7 @@ class Game extends Component{
             <ul className='jigsaw__shuffled-board'>
                 {
                     this.state.shuffled.map((piece, i) =>
-                    // this.renderPieceContainer(piece, i, 'shuffled'))
+
                     <li onDragOver={(e) => e.preventDefault()}
                     onDrop={(e) => this.handleDrop(e, i, 'shuffled')}
                     key={i}>
@@ -303,7 +224,7 @@ class Game extends Component{
             <ol className='jigsaw__solved-board' style={{backgroundImage: `url(./${this.state.type}/${this.state.original})`}}>
                 {
                     this.state.solved.map((piece, i) => 
-                    // this.renderPiecesContainer(piece, i, 'solved'))
+
                     <li onDragOver={(e) => e.preventDefault()}
                     onDrop={(e) => this.handleDrop(e, i, 'solved')}
                     key={i}>
@@ -315,11 +236,6 @@ class Game extends Component{
             </ol>
 
             <h1 className='text-3xl font-extrabold font-serif'>Countdown: <span>{this.state.numberLine["1"].end}</span></h1>
-
-            {/* {
-            this.check()
-            } */}
-        
         </div>
 
     );

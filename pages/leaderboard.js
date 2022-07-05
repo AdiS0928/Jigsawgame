@@ -31,22 +31,6 @@ export default function Leaderboard({ initialUser }){
       }
     var Router = useRouter();
 
-    //   useEffect( () =>{
-    //     // const fetchUser = async () => {
-    //     // const res = await fetch('/api/user');
-    //     // const users = await res.json();  
-        
-    //     // setUser(users)
-    //     // console.log(users)
-    //     // }
-
-    //     // const name = Router.query.name;
-    //     // const score = Router.query.score;        
-    //     // fetchUser();
-    //     // console.log(User)
-    // }, []
-    //   );
-
     if(Router.query.score > 0){
 
     return( 

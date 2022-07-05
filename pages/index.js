@@ -4,8 +4,7 @@ import {useRouter} from 'next/router'
 
 export default function Home () {
   const [Name, setName] = useState('');
-  const [Email, setEmail] = useState('');
-  const [Phone, setPhone] = useState('');
+
 
   var Router = useRouter();
 
