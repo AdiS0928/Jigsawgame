@@ -49,18 +49,19 @@ export default function Leaderboard({ initialUser }){
     if(Router.query.score > 0){
 
     return(
-        <div >
-            <form className='form ' onSubmit={handleSubmit}>
-                <label className='mx-auto text-[20px] inline-block relative text-left'> Congratulations {Router.query.name}! </label>
+        <div className='flex flex-row'>
+            <form className='form block-inline' onSubmit={handleSubmit}>
+                <label className=' ml-[100px] text-[20px] overflow-hidden'> Congratulations {Router.query.name}! </label>
                 
-                <label className='mx-auto text-[20px] inline-block relative text-left'>Your Score is {Router.query.score}</label>
+                <label  className=' ml-[130px]'>Your Score is {Router.query.score}</label>
                
                 <label className='leader overflow-hidden' type="text">
+                <span className=' ml-auto'>Name </span> <span className=' ml-[80px]'>Score</span>
                     {
                         User.map(user => {
                             return(
                                 <div key={user.name}>
-                                    {user.name} {user.score}
+                                   <span className=' pr-[100px]'> {user.name}</span> <span className='pr-auto'>{user.score}</span>
                                 </div>
                             )
                         })

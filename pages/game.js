@@ -39,7 +39,8 @@ class Game extends Component{
             }
           },
           type: '',
-          count:0
+          count:0,
+          check: 0
     };
 
     // counter(){
@@ -74,12 +75,18 @@ class Game extends Component{
           //chaos
         //   console.log(that.state.numberLine["1"].end)
         if (temp == 0 || temp < 1) {
-            
+            clearInterval(counter);
             Router.push({
                 pathname: '/leaderboard',
                 query: { name: Router.query.name, score: 0 }
             });
+            
           }
+        
+          if(that.state.check == 1){
+            clearInterval(counter);
+          }
+        
         }
         clearInterval(counter);
         const counter = setInterval(timer, 1000);
@@ -218,7 +225,9 @@ class Game extends Component{
                 if(this.state.solved[i].img==this.state.pieces[i].img)
                 {
                     if(count==l){
+                        this.setState({check:1});
                         // (async () => {
+
                         //     const res = await fetch('/api/user', {
                         //         method: 'POST',
                         //         body: JSON.stringify({name:Router.query.name,score: this.state.numberLine["1"].end * 3}),
@@ -256,7 +265,7 @@ class Game extends Component{
 
     render() {
         return(
-        <div className='puzzle bg-[url(/wood.jpg)] h-screen touch-none'>
+        <div className='puzzle bg-[url(/wood.jpg)] h-screen'>
             
             <ul className='jigsaw__shuffled-board'>
                 {
