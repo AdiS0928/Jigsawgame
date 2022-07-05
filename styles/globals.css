@@ -82,4 +82,16 @@
     bottom: 0;
     left: 0;
   }
+
+  .parent {
+    margin: 20px;
+    padding: 5px 5px;
+    text-align: center;
+  }
+
+  .child {
+    display: inline-block;
+    padding: 5px 5px;
+    vertical-align: middle;
+  }
 }

@@ -4,6 +4,23 @@ import _ from 'lodash';
 import Router from 'next/router'
 import { serverRuntimeConfig } from '../next.config';
 
+async function savedUser(user){
+    const response = await fetch('/api/user', {
+        method: 'POST',
+        body: JSON.stringify(user)
+    });
+
+    if(!response.ok){
+        throw Error(response.statusText);
+    }
+
+    Router.push({
+        pathname: '/leaderboard',
+        query: { name: user.name, score: user.score}
+    });
+
+    return await response.json();
+}
 class Game extends Component{
 
     // constructor(props) {
@@ -201,21 +218,29 @@ class Game extends Component{
                 if(this.state.solved[i].img==this.state.pieces[i].img)
                 {
                     if(count==l){
-                        (async () => {
-                            const res = await fetch('/api/user', {
-                                method: 'POST',
-                                body: JSON.stringify({name:Router.query.name,score: this.state.numberLine["1"].end * 3}),
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                            })
-                            const data = await res.json();
-                            console.log("solved!")
-                            Router.push({
-                                pathname: '/leaderboard',
-                                query: { name: Router.query.name, score: this.state.numberLine["1"].end * 3}
-                            });
-                        })()
+                        // (async () => {
+                        //     const res = await fetch('/api/user', {
+                        //         method: 'POST',
+                        //         body: JSON.stringify({name:Router.query.name,score: this.state.numberLine["1"].end * 3}),
+                        //         headers: {
+                        //             'Content-Type': 'application/json',
+                        //         },
+                        //     })
+                        //     const data = await res.json();
+                        //     console.log("solved!")
+                        //     Router.push({
+                        //         pathname: '/leaderboard',
+                        //         query: { name: Router.query.name, score: this.state.numberLine["1"].end * 3}
+                        //     });
+                        // })()
+                        (async () => {await savedUser({name:Router.query.name,score: this.state.numberLine["1"].end * 3});}
+                        )()
+
+                        // Router.push({
+                        //             pathname: '/leaderboard',
+                        //             query: { name: Router.query.name, score: this.state.numberLine["1"].end * 3}
+                        //         });
+                        
                     }
                     count++
                 }

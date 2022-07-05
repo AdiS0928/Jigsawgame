@@ -2,10 +2,15 @@ import {useRouter} from 'next/router'
 import { useEffect, useState } from 'react';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 export async function getServerSideProps() {
-    const user= await prisma.user.findMany();
+    const user= await prisma.user.findMany({
+        take: 5,
+        orderBy: {
+        score: 'desc',
+        },
+      });
     return {
       props: {
         initialUser: user
@@ -73,15 +78,20 @@ export default function Leaderboard({ initialUser }){
                 <label className='mx-auto text-[20px] '> Better Luck Next Time! </label>
                
                 <label className='leader overflow-hidden' type="text">
+                    <div >
+                <h3>Name Score</h3>
                     { 
                         User.map(user => {
                             return(
-                                <div key={user.name}>
-                                    {user.name} {user.score}
+                                <div  key={user.id}>
+                                    {user.name}   {user.score}
+
                                 </div>
+                                
                             )
                         })
                     }
+                    </div>
                 
                 </label>
 
